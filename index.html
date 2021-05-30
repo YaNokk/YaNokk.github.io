@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="main_table">
+        <div class="header">
+            <div class="header_wrapper">
+                <h1 class="header_name">Stocks Table</h1>
+                <div class="header_wrapper_buttons">
+                  <button type="button" class="btn btn-primary header_btn"><i class="bi bi-file-earmark-plus"></i> Add</button>
+                  <button type="button" class="btn btn-primary editing_btn"><i class="bi bi-save"></i> Save</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-sortable table-hover" id="table">
+            <thead>
+              <tr>
+                <th class="table_item cell-sortable" scope="col">#</th>
+                <th class="table_item cell-sortable" scope="col">Name</th>
+                <th class="table_item cell-sortable" scope="col">Date</th>
+                <th class="table_item cell-sortable" scope="col">Price</th>
+                <th class="table_item" scope="col" width="10%"></th>
+              </tr>
+            </thead>
+            <tbody class="table_body"></tbody>
+        </table>
+    </section>
+    <section class="chart">
+      <canvas id="myChart" width="1200px" height="800px"></canvas>
+    </section>
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">New stock</h5>
+              <button type="button" class="btn-close" data-modal_close aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="text" list="datalistOptions" data-type="label" class="modal_input" placeholder="Tesla" id="name">
+              <datalist id="datalistOptions">
+              </datalist>
+              <input type="date" data-type="x" class="modal_input" placeholder="10/26/2021" id="date">
+              <input type="number" data-type="y" class="modal_input" placeholder="850$" id="price">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-modal_close>Close</button>
+              <button type="button" class="btn btn-primary" data-modal_new>Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="bundle.js"></script>
+</body>
+</html>
