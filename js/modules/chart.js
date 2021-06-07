@@ -4,12 +4,13 @@ const chart = new Chart(document.getElementById('myChart'), {
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 0,
-        title: {
-            display: true,
-            text: "Chart.js Time Scale"
-        },
         scales: {
             x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Date'
+                },
                 type: "time",
                 time: {
                     parser: 'DD/MM/YYYY',
@@ -26,6 +27,11 @@ const chart = new Chart(document.getElementById('myChart'), {
                 }
             },
             y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Price'
+                },
                 ticks: {
                     align: 'center',
                     crossAlign: 'center',
@@ -35,6 +41,10 @@ const chart = new Chart(document.getElementById('myChart'), {
             },
         },
         plugins: {
+            title: {
+                display: true,
+                text: 'Current stocks'
+            },
             legend: {
                 labels: {
                     font: {

@@ -2,7 +2,6 @@ import {getRandomColor, chartSort, validator} from './modules/utilites.js';
 import {chart} from './modules/chart.js';
 import {cellRender, tableRender, chartformatDate} from './modules/render.js';
 
-console.log('test');
 chart.data.datasets = JSON.parse(localStorage.getItem('dataSets')) || chart.data.datasets ;
 [...new Set(chart.data.datasets)].forEach(e => document.querySelector('#datalistOptions').innerHTML += `<option value=${e.label}>`)
 if (chart.data.datasets.length === 0) {
@@ -55,7 +54,6 @@ document.querySelector('[data-modal_new]').addEventListener('click', () => {
     priceT = document.querySelector('#price'),
     parent = document.querySelector('.table_body'),
     saveBtn = document.querySelector('.editing_btn');
-    console.log(1);
     if (validator([nameT,dateT,priceT])){
         let flag = false;
         chart.data.datasets.forEach((element, index) => {
@@ -127,7 +125,6 @@ function deleteChart(chart, dataSetIndex, dataSetItemIndex) {
 }
 
 function sortTableByColumn(table, column, asc = true) {
-    console.log(column);
     const dirModifier = asc ? 1 : -1;
     const tBody = table.tBodies[0];
     const rows = Array.from(tBody.querySelectorAll("tr"));
@@ -136,7 +133,6 @@ function sortTableByColumn(table, column, asc = true) {
             sortedRows = rows.sort((a, b) => {
             const aColText = Number(a.childNodes[1].childNodes[0].innerHTML);
             const bColText = Number(b.childNodes[1].childNodes[0].innerHTML);
-            console.log(aColText, bColText);
             return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
         });
     }
@@ -144,7 +140,6 @@ function sortTableByColumn(table, column, asc = true) {
             sortedRows = rows.sort((a, b) => {
             const aColText =a.childNodes[3].childNodes[0].innerHTML;
             const bColText = b.childNodes[3].childNodes[0].innerHTML;
-            console.log(aColText, bColText);
             return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
         });
     }
@@ -152,7 +147,6 @@ function sortTableByColumn(table, column, asc = true) {
         sortedRows = rows.sort((a, b) => {
         const aColText = Number(moment(a.childNodes[5].childNodes[0].value.replace(/-/gim, '/')));
         const bColText = Number(moment(b.childNodes[5].childNodes[0].value.replace(/-/gim, '/')));
-        console.log(aColText, bColText);
         return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
         });
     }
@@ -160,7 +154,6 @@ function sortTableByColumn(table, column, asc = true) {
         sortedRows = rows.sort((a, b) => {
             const aColText = Number(a.childNodes[7].childNodes[0].value);
             const bColText = Number(b.childNodes[7].childNodes[0].value);
-            console.log(aColText, bColText);
             return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
         });
     }
@@ -184,7 +177,6 @@ document.querySelectorAll(".cell-sortable").forEach(headerCell => {
 });
 
 document.querySelector('tbody').addEventListener('click', (e) => {
-    console.log(e.target)
     if (e.target.getAttribute('data-table_delete') === '') {
         deleteChart(chart, +e.target.getAttribute('data-cellIndex'), +e.target.getAttribute('data-trashIndex'));
         tableRender(chart, document.querySelector('.table_body'));
@@ -194,13 +186,15 @@ document.querySelector('tbody').addEventListener('click', (e) => {
             notification.classList.add(`notification`);
             document.querySelector('.main_table').append(notification);
         }
+        localStorage.setItem('dataSets', JSON.stringify(chart.data.datasets));
+        clearModal();
         chart.update();
     }
 });
 
 function clearModal(){
     document.querySelector('#datalistOptions').innerHTML = '';
-    [...new Set(chart.data.datasets)].forEach(e => document.querySelector('#datalistOptions').innerHTML += `<option value=${e.label}>`);
+    [...new Set(chart.data.datasets)].forEach(e => document.querySelector('#datalistOptions').innerHTML += `<option value=${e.label}></option>`);
     document.querySelectorAll('.modal_input').forEach(e => e.value = '');
     [...document.querySelectorAll('.invalid-feedback'), ...document.querySelectorAll('.valid-feedback')].forEach(e => e.remove());
 }
